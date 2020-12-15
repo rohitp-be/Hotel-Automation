@@ -4,25 +4,25 @@ movement = []
 floors = 0
 IPath= "input.txt"
 floorObjects = {}
-maxLimit = 35
 
 def readInput():
     count  = 0
     flag = True
-    temp = {}
     with open(IPath, 'r') as fInput:
+        temp = {}
         for line in fInput:
             if count == 0:
                 floors = int(line)                
-            elif 2*floors >= count and count > 0:
+            elif 2*floors >= count:
                 if flag:
                     temp["MC"]=int(line)
                     flag = False
                 else:
                     temp["SC"]=int(line)
                     flag = True
-                if count/2 > 0:
+                if count/2 > 0 and count%2 == 0:
                     hotel[count/2] = temp
+                    temp = {}
             count += 1
 
 def getObjects(hotel):
@@ -55,9 +55,20 @@ def getCost(fobj):
     finally:
         return fCost
 
+def getMLimit(fobj):
+    maxlimit = 0
+    try:
+        for obj in fobj:
+            maxlimit = obj.getMaxLimit()
+            break
+    except Exception as e:
+        print e.message
+    finally:
+        return maxlimit
+
 def checkCost(floorObjects):
     for i in floorObjects:
-        while getCost(floorObjects[i]) > maxLimit:
+        while getCost(floorObjects[i]) > getMLimit(floorObjects[i]):
             updateStatus(floorObjects[i])
 
 def setStatus(flr, cord, flg):
@@ -76,6 +87,7 @@ def setStatus(flr, cord, flg):
 
 def showStatus():
     global floorObjects
+    print floorObjects
     for j in floorObjects:
         print "floor: ", j
         for objs in floorObjects[j]:

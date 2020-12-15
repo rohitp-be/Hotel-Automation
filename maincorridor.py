@@ -1,10 +1,11 @@
 class MainCorridor:
-    def __init__(self, cord= 0, floor=0, AC=True, Light=True, cost=15):
+    def __init__(self, cord= 0, floor=0, mLimit=0, AC=True, Light=True, cost=15):
         self.AC = AC
         self.Light = Light
         self.cord = cord
         self.floor = floor
         self.cost = 15
+        self.mLimit = mLimit
         self.type = "main"
 
     def getStatus(self):
@@ -14,3 +15,6 @@ class MainCorridor:
 
     def getCost(self):
         return self.cost
+    
+    def getMaxLimit(self):
+        return self.mLimit

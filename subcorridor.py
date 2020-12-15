@@ -1,12 +1,13 @@
 class SubCorridor:
     light_cost = 5
     ac_cost = 10
-    def __init__(self, cord=0,  floor=0, AC=True, Light=False):
+    def __init__(self, cord=0,  floor=0, mLimit=0, AC=True, Light=False):
         self.AC = AC
         self.Light = Light
         self.cost = 10
         self.cord = cord
         self.floor = floor
+        self.mLimit = mLimit
         self.type = "sub"
     
     def setStatus(self, AC=True, Light=False):
@@ -22,3 +23,6 @@ class SubCorridor:
         l_cost = self.light_cost if self.Light else 0
         self.cost = a_cost + l_cost
         return self.cost
+    
+    def getMaxLimit(self):
+        return self.mLimit
